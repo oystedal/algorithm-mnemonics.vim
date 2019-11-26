@@ -1,0 +1,1087 @@
+global !p
+import snippets
+endglobal
+
+# Containers
+snippet stv "vector"
+std::vector<${1:${VISUAL:type}}>
+endsnippet
+
+# Idioms
+snippet erm "erase"
+${1:${VISUAL:container}}.erase(
+	std::remove(std::begin($1), std::end($1), ${2:value}),
+	std::end($1)
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet erase_remove "erase_remove"
+erm$1
+endsnippet
+
+snippet eri "erase_remove_if"
+${1:${VISUAL:container}}.erase(
+	std::remove_if(
+		std::begin($1), std::end($1),
+		${2:value}),
+	std::end($1)
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet erase_remove_if "erase_remove_if"
+eri$1
+endsnippet
+
+# Modifying
+snippet cpb "copy_backward"
+std::copy_backward(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::end(${2:output}));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet copy_backward "copy_backward"
+cpb$1
+endsnippet
+
+snippet cpi "copy_if"
+std::copy_if(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output}),
+	[] (${3:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet copy_if "copy_if"
+cpi$1
+endsnippet
+
+snippet cpn "copy_n"
+std::copy_n(std::begin(${1:${VISUAL:input}}), ${2:count}, std::end(${3:output}));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet copy_n "copy_n"
+cpn$1
+endsnippet
+
+snippet cpy "copy"
+std::copy(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet copy "copy"
+cpy$1
+endsnippet
+
+snippet fil "fill"
+std::fill(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	${2:value}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet fill "fill"
+fil$1
+endsnippet
+
+snippet fln "fill_n"
+std::fill_n(
+	std::begin(${1:${VISUAL:container}}), ${2:count},
+	${3:value}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet fill_n "fill_n"
+fln$1
+endsnippet
+
+snippet gnn "generate_n"
+std::generate_n(
+	std::begin(${1:${VISUAL:container}}), ${2:count},
+	[] (${3:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet generate_n "generate_n"
+gnn$1
+endsnippet
+
+snippet gnr "generate"
+std::generate(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet generate "generate"
+gnr$1
+endsnippet
+
+snippet ita "iota"
+std::iota(std::begin(${1:${VISUAL:container}}), std::end($1), ${2:initial_value});
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet iota "iota"
+ita$1
+endsnippet
+
+snippet mov "move"
+std::move(std::begin(${1:${VISUAL:input}}), std::end($1), std::begin(${2:output}}));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet move "move"
+mov$1
+endsnippet
+
+snippet mpb "move_backward"
+std::move_backward(std::begin(${1:${VISUAL:input}}), std::end($1), std::end(${2:output}));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet move_backward "move_backward"
+mpb$1
+endsnippet
+
+snippet rci "replace_copy_if"
+std::replace_copy_if(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output}),
+	[] (${3:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	},
+	${5:new_value}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet replace_copy_if "replace_copy_if"
+rci$1
+endsnippet
+
+snippet rpc "replace_copy"
+std::replace_copy(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output}),
+	${3:old_value}, ${4:new_value}}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet replace_copy "replace_copy"
+rpc$1
+endsnippet
+
+snippet rpi "replace_if"
+std::replace_if(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	},
+	${4:new_value}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet replace_if "replace_if"
+rpi$1
+endsnippet
+
+snippet rpl "replace"
+std::replace(std::begin(${1:${VISUAL:container}}), std::end($1), ${2:old_value}, ${3:new_value});
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet replace "replace"
+rpl$1
+endsnippet
+
+snippet swp "swap"
+std::swap(${1:${VISUAL:lhs}}, ${2:rhs});
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet swap "swap"
+swp$1
+endsnippet
+
+snippet swr "swap_ranges"
+std::swap_ranges(
+	std::begin(${1:${VISUAL:container1}}), std::end($1),
+	std::begin(${2:container2})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet swap_ranges "swap_ranges"
+swr$1
+endsnippet
+
+snippet tfm "transform"
+std::transform(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output}),
+	[${5}] (${3:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet transform "transform"
+tfm$1
+endsnippet
+
+# Mutating
+snippet nxp "next_permutation"
+if (std::next_permutation(std::begin(${1:${VISUAL:container}}), std::end($1))) {
+	${2}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet next_permutation "next_permutation"
+nxp$1
+endsnippet
+
+snippet prp "prev_permutation"
+if (std::prev_permutation(std::begin(${1:${VISUAL:container}}), std::end($1))) {
+	${2}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet prev_permutation "prev_permutation"
+prp$1
+endsnippet
+
+snippet rtc "rotate_copy"
+std::rotate_copy(
+	std::begin(${1:${VISUAL:input}}), std::begin(${2:middle}),
+	std::end($1),
+	std::begin(${2:output})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet rotate_copy "rotate_copy"
+rtc$1
+endsnippet
+
+snippet rte "rotate"
+std::rotate(
+	std::begin(${1:${VISUAL:container}}), std::begin(${2:middle}),
+	std::end($1)
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet rotate "rotate"
+rte$1
+endsnippet
+
+snippet rvc "reverse_copy"
+std::reverse_copy(std::begin(${1:${VISUAL:input}}), std::end($1), std::begin(${2:output}));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet reverse_copy "reverse_copy"
+rvc$1
+endsnippet
+
+snippet rvr "reverse"
+std::reverse(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet reverse "reverse"
+rvr$1
+endsnippet
+
+snippet shf "random_shuffle"
+std::random_shuffle(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet random_shuffle "random_shuffle"
+shf$1
+endsnippet
+
+# Nonmodifying
+snippet ajf "adjacent_find"
+`!v algorithm_mnemonics#const_return("pos")` = std::adjacent_find(std::begin(${1:${VISUAL:container}}), std::end($1));
+if (pos != std::end($1)) {
+	${2}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet adjacent_find "adjacent_find"
+ajf$1
+endsnippet
+
+snippet alo "all_of"
+${4}std::all_of(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+${5}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet all_of "all_of"
+alo$1
+endsnippet
+
+snippet ano "any_of"
+${4}std::any_of(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+${5}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet any_of "any_of"
+ano$1
+endsnippet
+
+snippet cni "count_if"
+`!v algorithm_mnemonics#const_return("n")` = std::count_if(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet count_if "count_if"
+cni$1
+endsnippet
+
+snippet cnt "count"
+`!v algorithm_mnemonics#const_return("n")` = std::count(std::begin(${1:${VISUAL:container}}), std::end($1), ${2:value});
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet count "count"
+cnt$1
+endsnippet
+
+snippet eql "equal"
+if (std::equal(
+	std::begin(${1:${VISUAL:container1}}), std::end($1),
+	std::begin(${2:container2}))) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet equal "equal"
+eql$1
+endsnippet
+
+snippet ffo "find_first_of"
+`!v algorithm_mnemonics#const_return("pos")` = std::find_first_of(
+	std::begin(${1:${VISUAL:container1}}), std::end($1),
+	std::begin(${2:container2}), std::end($2)
+);
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet find_first_of "find_first_of"
+ffo$1
+endsnippet
+
+snippet fin "find_if_not"
+`!v algorithm_mnemonics#const_return("pos")` = std::find_if_not(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+if (pos != std::end($1)) {
+	${5}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet find_if_not "find_if_not"
+fin$1
+endsnippet
+
+snippet fnd "find"
+`!v algorithm_mnemonics#const_return("pos")` = std::find(std::begin(${1:${VISUAL:container}}), std::end($1), ${2:value});
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet find "find"
+fnd$1
+endsnippet
+
+snippet fne "find_end"
+`!v algorithm_mnemonics#const_return("pos")` = std::find(
+	std::end(std::begin(${1:${VISUAL:container}}), std::end($1),
+	std::begin(${2:container2}), std::end($2)));
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet find_end "find_end"
+fne$1
+endsnippet
+
+snippet fni "find_if"
+`!v algorithm_mnemonics#const_return("pos")` = std::find_if(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+if (pos != std::end($1)) {
+	${5}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet find_if "find_if"
+fni$1
+endsnippet
+
+snippet fre "for_each"
+std::for_each(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet for_each "for_each"
+fre$1
+endsnippet
+
+snippet ihp "is_heap"
+`!v algorithm_mnemonics#const_return("heap")` = std::is_heap(std::begin(${1:${VISUAL:container}}), std::end($1));
+if (heap) {
+	$2
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet is_heap "is_heap"
+ihp$1
+endsnippet
+
+snippet ihu "is_heap_until"
+`!v algorithm_mnemonics#const_return("pos")` = std::is_heap_until(std::begin(${1:${VISUAL:container}}), std::end($1));
+if (pos != std::end($1)) {
+	$2
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet is_heap_until "is_heap_until"
+ihu$1
+endsnippet
+
+snippet ipr "is_permutation"
+`!v algorithm_mnemonics#const_return("permutation")` = std::is_permutation(std::begin(${1:${VISUAL:container1}}), std::end($1), std::begin(${2:container2}))
+if (permutation) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet is_permutation "is_permutation"
+ipr$1
+endsnippet
+
+snippet ipt "is_partitioned"
+const bool ${1:${VISUAL:is_partitioned}} = std::is_partitioned(
+	std::begin(${2:${VISUAL:container}}), std::end($2),
+	[] (${3:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+if ($1) {
+	${5}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet is_partitioned "is_partitioned"
+ipt$1
+endsnippet
+
+snippet iss "is_sorted"
+bool sorted = std::is_sorted(std::begin(${1:${VISUAL:container}}), std::end($1));
+if (sorted) {
+	$2
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet is_sorted "is_sorted"
+iss$1
+endsnippet
+
+snippet isu "is_sorted_until"
+`!v algorithm_mnemonics#const_return("pos")` = std::is_sorted_until(std::begin(${1:${VISUAL:container}}), std::end($1));
+if (pos != std::end($1)) {
+	$2
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet is_sorted_until "is_sorted_until"
+isu$1
+endsnippet
+
+snippet lxc "lexigraphical_compare"
+if (std::lexigraphical_compare(
+	std::begin(${1:${VISUAL:container1}}), std::end($1),
+	std::begin(${2:container2}), std::end($2)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet lexigraphical_compare "lexigraphical_compare"
+lxc$1
+endsnippet
+
+snippet mme "minmax_element"
+`!v algorithm_mnemonics#const_return("minmax")` = std::minmax_element(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet minmax_element "minmax_element"
+mme$1
+endsnippet
+
+snippet mne "min_element"
+`!v algorithm_mnemonics#const_return("pos")` = std::min_element(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet min_element "min_element"
+mne$1
+endsnippet
+
+snippet msm "mismatch"
+`!v algorithm_mnemonics#const_return("values")` = std::mismatch(
+	std::begin(${1:${VISUAL:container1}}), std::end($1),
+	std::begin(${2:container2})
+);
+if (values.first == std::end($1)) {
+	${3}
+} else {
+	${4}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet mismatch "mismatch"
+msm$1
+endsnippet
+
+snippet mxe "max_element"
+`!v algorithm_mnemonics#const_return("pos")` = std::max_element(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet max_element "max_element"
+mxe$1
+endsnippet
+
+snippet nno "none_of"
+const bool none = std::none_of(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+if (none) {
+	${4}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet none_of "none_of"
+nno$1
+endsnippet
+
+snippet ppt "partition_point"
+`!v algorithm_mnemonics#const_return("pos")` = std::partition_point(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) { ${3} }
+);
+if (pos != std::end($1)) {
+	${4}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet partition_point "partition_point"
+ppt$1
+endsnippet
+
+snippet srh "search"
+`!v algorithm_mnemonics#const_return("pos")` = std::search(
+	std::begin(${1:${VISUAL:container1}}), std::end($1),
+	std::begin(${2:container2}), std::end($2)
+);
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet search "search"
+srh$1
+endsnippet
+
+snippet srn "search_n"
+`!v algorithm_mnemonics#const_return("pos")` = std::search_n(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	${2:count}, ${3:value}}
+);
+if (pos != std::end($1)) {
+	${4}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet search_n "search_n"
+srn$1
+endsnippet
+
+# Numeric
+snippet acl "accumulate"
+`!v algorithm_mnemonics#const_return("sum")` = std::accumulate(
+	std::begin(${1:${VISUAL:container}}), std::end($1), 0,
+	[] (auto const total, ${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet accumulate_lambda "accumulate"
+acl$1
+endsnippet
+
+snippet acm "accumulate"
+`!v algorithm_mnemonics#const_return("sum")` = std::accumulate(std::begin(${1:${VISUAL:container}}), std::end($1), 0);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet accumulate_cont "accumulate"
+acm$1
+endsnippet
+
+# Removing
+snippet rmc "remove_copy"
+std::remove_copy(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output}), ${3:value}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet remove_copy "remove_copy"
+rmc$1
+endsnippet
+
+snippet rmf "remove_copy_if"
+std::remove_copy_if(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output}),
+	[] (${3:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet remove_copy_if "remove_copy_if"
+rmf$1
+endsnippet
+
+snippet rmi "remove_if"
+`!v algorithm_mnemonics#const_return("pos")` = std::remove_if(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${4}
+	}
+);
+if (pos != std::end($1)) {
+	${5}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet remove_if "remove_if"
+rmi$1
+endsnippet
+
+snippet rmv "remove"
+`!v algorithm_mnemonics#const_return("pos")` = std::remove(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	${2:value}
+);
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet remove "remove"
+rmv$1
+endsnippet
+
+# Sorted Ranges
+snippet uqe "unique"
+`!v algorithm_mnemonics#const_return("pos")` = std::unique(std::begin(${1:${VISUAL:container}}), std::end($1));
+
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet unique "unique"
+uqe$1
+endsnippet
+
+snippet bns "binary_search"
+`!v algorithm_mnemonics#const_return("pos")` = std::binary_search(std::begin(${1:${VISUAL:container}}), std::end($1), ${2:value});
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet binary_search "binary_search"
+bns$1
+endsnippet
+
+snippet eqr "equal_range"
+`!v algorithm_mnemonics#const_return("bounds")` = std::equal_range(std::begin(${1:${VISUAL:container}}), std::end($1), ${2:value});
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet equal_range "equal_range"
+eqr$1
+endsnippet
+
+snippet erl "equal_range"
+`!v algorithm_mnemonics#const_return("bounds")` = std::equal_range(
+	std::begin(${1:${VISUAL:container}}), std::end($1), ${2:value},
+	[] (${3:auto const lhs}, ${4:auto const rhs}) {
+		${5}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet equal_range_lambda "equal_range"
+erl$1
+endsnippet
+
+snippet inc "includes"
+if (std::includes(
+		std::begin(${1:${VISUAL:container1}}), std::end($1),
+		std::begin(${2:container2}), std::end($2))) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet includes "includes"
+inc$1
+endsnippet
+
+snippet ipm "inplace_merge"
+std::inplace_merge(std::begin(${1:${VISUAL:container}}), std::end(${2:middle}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet inplace_merge "inplace_merge"
+ipm$1
+endsnippet
+
+snippet lwb "lower_bound"
+`!v algorithm_mnemonics#const_return("pos")` = std::lower_bound(std::begin(${1:${VISUAL:container}}), std::end($1), ${2:value});
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet lower_bound "lower_bound"
+lwb$1
+endsnippet
+
+snippet mrg "merge"
+std::merge(
+	std::begin(${1:${VISUAL:input1}}), std::end($1),
+	std::begin(${2:input2}), std::end($2),
+	std::begin(${3:output})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet merge "merge"
+mrg$1
+endsnippet
+
+snippet ssd "set_symmetric_difference"
+`!v algorithm_mnemonics#const_return("pos")` = std::set_symmetric_difference(
+	std::begin(${1:${VISUAL:input1}}), std::end($1),
+	std::begin(${2:input2}), std::end($2),
+	std::begin(${3:output})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet set_symmetric_difference "set_symmetric_difference"
+ssd$1
+endsnippet
+
+snippet std "set_difference"
+`!v algorithm_mnemonics#const_return("pos")` = std::set_difference(
+	std::begin(${1:${VISUAL:input1}}), std::end($1),
+	std::begin(${2:input2}), std::end($2),
+	std::begin(${3:output})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet set_difference "set_difference"
+std$1
+endsnippet
+
+snippet stn "set_intersection"
+`!v algorithm_mnemonics#const_return("pos")` = std::set_intersection(
+	std::begin(${1:${VISUAL:input1}}), std::end($1),
+	std::begin(${2:input2}), std::end($2),
+	std::begin(${3:output})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet set_intersection "set_intersection"
+stn$1
+endsnippet
+
+snippet stu "set_union"
+`!v algorithm_mnemonics#const_return("pos")` = std::set_union(
+		std::begin(${1:${VISUAL:input1}}), std::end($1),
+		std::begin(${2:input2}), std::end($2),
+		std::begin(${3:output})
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet set_union "set_union"
+stu$1
+endsnippet
+
+snippet ucp "unique_copy"
+std::unique_copy(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	${2:std::ostream_iterator<string>(std::cout, "\n")}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet unique_copy "unique_copy"
+ucp$1
+endsnippet
+
+snippet upb "upper_bound"
+`!v algorithm_mnemonics#const_return("pos")` = std::upper_bound(
+	std::begin(${1:${VISUAL:container}}),
+	std::end($1),
+	${2:value}
+);
+if (pos != std::end($1)) {
+	${3}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet upper_bound "upper_bound"
+upb$1
+endsnippet
+
+# Sorting
+snippet mkh "make_heap"
+std::make_heap(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet make_heap "make_heap"
+mkh$1
+endsnippet
+
+snippet nth "nth_element"
+std::nth_element(
+	std::begin(${1:${VISUAL:container}}), std::end(${2:nth}),
+	std::end($1));${}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet nth_element "nth_element"
+nth$1
+endsnippet
+
+snippet phh "push_heap"
+std::push_heap(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet push_heap "push_heap"
+phh$1
+endsnippet
+
+snippet pph "pop_heap"
+std::pop_heap(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet pop_heap "pop_heap"
+pph$1
+endsnippet
+
+snippet psc "partial_sort_copy"
+std::partial_sort_copy(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:output}), std::end($2)
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet partial_sort_copy "partial_sort_copy"
+psc$1
+endsnippet
+
+snippet pst "partial_sort"
+std::partial_sort(
+	std::begin(${1:${VISUAL:container}}), ${2:middle},
+	std::end($1)
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet partial_sort "partial_sort"
+pst$1
+endsnippet
+
+snippet ptc "partition_copy"
+std::partition_copy(
+	std::begin(${1:${VISUAL:input}}), std::end($1),
+	std::begin(${2:true_output}), std::end(${3:false_output}),
+	[]  (${4:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${5}
+	}
+);
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet partition_copy "partition_copy"
+ptc$1
+endsnippet
+
+snippet ptn "partition"
+`!v algorithm_mnemonics#const_return("pos")` = std::partition(
+	std::begin(${1:${VISUAL:container}}), std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+if (pos != std::end($1)) {
+	${4}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet partition "partition"
+ptn$1
+endsnippet
+
+snippet spt "stable_partition"
+`!v algorithm_mnemonics#const_return("pos")` = std::stable_partition(
+	std::begin(${1:${VISUAL:container}}),
+	std::end($1),
+	[] (${2:`!v g:algorithm_mnemonics_lambda_parameter`}) {
+		${3}
+	}
+);
+if (pos != std::end($1)) {
+	${4}
+}
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet stable_partition "stable_partition"
+spt$1
+endsnippet
+
+snippet srt "sort"
+std::sort(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet sort "sort"
+srt$1
+endsnippet
+
+snippet sth "sort_heap"
+std::sort_heap(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet sort_heap "sort_heap"
+sth$1
+endsnippet
+
+snippet sts "stable_sort"
+std::stable_sort(std::begin(${1:${VISUAL:container}}), std::end($1));
+endsnippet
+
+post_jump "snippets.expand(snip)"
+snippet stable_sort "stable_sort"
+sts$1
+endsnippet

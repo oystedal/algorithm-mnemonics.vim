@@ -9,5 +9,5 @@ function! s:init(name, value)
   endif
 endfunction
 
-call s:init("g:algorithm_mnemonics_const_return", "Right")
-call s:init("g:algorithm_mnemonics_lambda_parameter", "auto const value")
+call s:init("g:algorithm_mnemonics_const_return", "Left")
+call s:init("g:algorithm_mnemonics_lambda_parameter", "const auto& value")
